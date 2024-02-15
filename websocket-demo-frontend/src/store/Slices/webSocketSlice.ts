@@ -16,13 +16,15 @@ interface webSocketMessage {
 interface webSocketState {
     isConnected: boolean;
     stompClient: Stomp.Client | undefined;
-    messages: webSocketMessage[] | undefined
+    messages: webSocketMessage[] | undefined;
+    count: string;
 }
 
 const initialState: webSocketState = {
     isConnected: false,
     stompClient: undefined,
-    messages: []
+    messages: [],
+    count: 0
 };
 
 export const webSocketSlice = createSlice({
@@ -34,13 +36,17 @@ export const webSocketSlice = createSlice({
         },
         appendMessage: (state, action : PayloadAction<webSocketMessage>) => {
             state.messages?.push(action.payload);
+            if (action.payload.type=='JOIN'||action.payload.type=='LEAVE') state.count = action.payload.count;
         },
         setStompClient: (state, action : PayloadAction<Stomp.Client>) => {
             state.stompClient = action.payload;
-        }
+        },
+//         setCount: (state, action : PayloadAction<string>) => {
+//             state.count = action.payload;
+//         }
     },
 });
 
-export const {setIsConnected, appendMessage,setStompClient} = webSocketSlice.actions;
+export const {setIsConnected, appendMessage,setStompClient,setCount} = webSocketSlice.actions;
 export default webSocketSlice.reducer;
 export const selectWebSocket = (state: RootState) => state.webSocket;

@@ -18,7 +18,9 @@ export default function ChatBox() {
                     <h1 className="text-3xl font-extrabold text-gray-800">Group Chat</h1>
                     <p className="text-gray-600">Welcome to the chat room!</p>
                     <p>
-                        Online persons : <strong>fix me pls</strong>
+                        Online persons : <strong> {
+                            webSocketState.count
+                        } </strong>
                     </p>
                 </div>
 

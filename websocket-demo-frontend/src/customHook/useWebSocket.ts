@@ -43,6 +43,12 @@ function useWebSocket(){
     const onMessageReceived = (payload : Stomp.Message) => {
         dispatch(appendMessage(JSON.parse(payload.body)))
     }
+//     const count = (count : String) => {
+//         stompClient.subscribe('/topic/public', onMessageReceived);
+//         stompClient.send("/app/chat.getCount", {}, JSON.stringify({count : getCount}));
+//         dispatch(setCount(count))
+//     }
+
     return {connect,sendMessage}
 }
 
